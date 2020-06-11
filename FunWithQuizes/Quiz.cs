@@ -1,24 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace FunWithQuizes
 {
-    class Quiz
+    public class Quiz
     {
-        static void Main(string[] args)
-        {
-            List<Question> FunQuiz = new List<Question>();
-            int correct = 0;
-         
-            FunQuiz.Add(new MultipleChoice("What is the name of the earth's sun?", 'B', new Dictionary<char, string> {['A'] = "Bruno", ['B'] = "Sol", ['C'] = "Althea", ['D'] = "Bob"}));
-            FunQuiz.Add(new TrueFalse("The sky is up.", true, new Dictionary<char, string> { ['T'] = "True", ['F'] = "False"}));
-            FunQuiz.Add(new Checkbox("Which of the below are phases of water.", new List<char> { 'A', 'B', 'D'}, new Dictionary<char, string> { ['A'] = "Liquid", ['B'] = "Solid", ['C'] = "Old", ['D'] = "Gas" }));
+        private int quizId { get; }
+        private static int nextId = 1;
+        public List<Question> FunQuiz = new List<Question>();
 
+        public Quiz ()
+        {
+            quizId = nextId;
+            nextId++;
+        }
+
+        public void AddQuestions(Question query)
+        {
+            FunQuiz.Add(query);
+        }
+
+        public void RunQuiz ()
+        {
+            int correct = 0;
 
             foreach (Question item in FunQuiz)
             {
                 Console.WriteLine(item.Query);
-                foreach(char key in item.Options.Keys)
+                foreach (char key in item.Options.Keys)
                 {
                     Console.WriteLine($"{key}: {item.Options[key]}");
                 }
@@ -31,8 +42,8 @@ namespace FunWithQuizes
                 {
                     Console.WriteLine("INCORRECT!!!");
                 }
-                Console.WriteLine($"You got {correct} out of {FunQuiz.Count} correct!");
             }
+            Console.WriteLine($"You got {correct} out of {FunQuiz.Count} correct!");
         }
     }
 }
