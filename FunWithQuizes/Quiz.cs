@@ -45,5 +45,21 @@ namespace FunWithQuizes
             }
             Console.WriteLine($"You got {correct} out of {FunQuiz.Count} correct!");
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Quiz quiz &&
+                   quizId == quiz.quizId;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(quizId);
+        }
+
+        public override string ToString()
+        {
+            return $"{quizId}";
+        }
     }
 }
